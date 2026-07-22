@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ironline Motors — Inventory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <span class="brand__mark">⛒</span>
+        <span class="brand__name">IRONLINE<span class="brand__name--accent">MOTORS</span></span>
+      </div>
+      <nav class="topbar__actions" id="nav-actions"></nav>
+    </div>
+  </header>
+
+  <!-- ===== Auth screen ===== -->
+  <main id="auth-screen" class="auth-screen hidden">
+    <div class="auth-card">
+      <div class="auth-card__tab-row">
+        <button class="auth-tab active" data-tab="login">Sign in</button>
+        <button class="auth-tab" data-tab="register">Create account</button>
+      </div>
+
+      <form id="login-form" class="auth-form">
+        <label>Email <input type="email" name="email" required autocomplete="email" /></label>
+        <label>Password <input type="password" name="password" required autocomplete="current-password" /></label>
+        <p class="form-error" id="login-error"></p>
+        <button type="submit" class="btn btn--primary">Sign in</button>
+      </form>
+
+      <form id="register-form" class="auth-form hidden">
+        <label>Email <input type="email" name="email" required autocomplete="email" /></label>
+        <label>Password <input type="password" name="password" required minlength="6" autocomplete="new-password" /></label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="is_admin" />
+          Register as dealership admin
+        </label>
+        <p class="form-error" id="register-error"></p>
+        <button type="submit" class="btn btn--primary">Create account</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ===== Dashboard ===== -->
+  <main id="dashboard" class="dashboard hidden">
+
+    <section class="lot-header">
+      <div>
+        <p class="eyebrow">Current inventory</p>
+        <h1>Vehicles on the lot</h1>
+      </div>
+      <button class="btn btn--accent" id="open-add-vehicle" hidden>+ Add vehicle</button>
+    </section>
+
+    <section class="filter-panel">
+      <input type="text" id="filter-make" placeholder="Make (e.g. Toyota)" />
+      <input type="text" id="filter-model" placeholder="Model (e.g. Corolla)" />
+      <input type="text" id="filter-category" placeholder="Category (e.g. SUV)" />
+      <input type="number" id="filter-min-price" placeholder="Min $" min="0" />
+      <input type="number" id="filter-max-price" placeholder="Max $" min="0" />
+      <button class="btn btn--ghost" id="apply-filters">Search</button>
+      <button class="btn btn--ghost btn--muted" id="clear-filters">Clear</button>
+    </section>
+
+    <p class="status-line" id="status-line"></p>
+
+    <section class="vehicle-grid" id="vehicle-grid"></section>
+  </main>
+
+  <!-- ===== Add / edit vehicle modal ===== -->
+  <div class="modal-backdrop hidden" id="vehicle-modal">
+    <div class="modal">
+      <div class="modal__head">
+        <h2 id="modal-title">Add vehicle</h2>
+        <button class="modal__close" id="close-modal" aria-label="Close">&times;</button>
+      </div>
+      <form id="vehicle-form">
+        <input type="hidden" name="id" />
+        <label>Make <input type="text" name="make" required /></label>
+        <label>Model <input type="text" name="model" required /></label>
+        <label>Category <input type="text" name="category" required placeholder="Sedan, SUV, Truck..." /></label>
+        <label>Price (USD) <input type="number" name="price" min="1" step="0.01" required /></label>
+        <label>Quantity in stock <input type="number" name="quantity" min="0" step="1" required /></label>
+        <p class="form-error" id="vehicle-form-error"></p>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" id="cancel-modal">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="vehicle-form-submit">Add to lot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
